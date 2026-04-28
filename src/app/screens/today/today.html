@@ -1,1 +1,58 @@
-<p>today works!</p>
+<div class="flex flex-col gap-20 w-220 m-10">
+    <app-title main="Foco de Hoje" sub="Mantenha a disciplina. Matenha a calma. Seja produtivo." size="text-5xl" font="font-bold"></app-title>
+
+    <div class="flex items-center p-3 bg-white rounded-lg border border-zinc-200 h-19">
+        <span class="text-zinc-400 material-symbols-outlined">add</span>
+        <input #inputTask maxlength="70" (input)="null" type="text" (keyup.enter)="postTask($event, $event.target)" placeholder="Adicionar nova tarefa..." class="text-zinc-400 ml-6 w-full h-full outline-none">
+        
+        <p class="p-5 text-zinc-700">{{ inputTask.value.length }}/70</p>
+
+        <button class="bg-black rounded-lg cursor-pointer active:bg-zinc-700 text-white p-1 px-4"
+            (click)="postTask($event, inputTask)"
+        >
+            Adicionar
+        </button>
+    </div>
+
+    <div>
+        @if (taskService.tasks().length === 0) {
+            <div class="flex justify-center mt-40">
+                <h1 class="text-zinc-400">Nenhuma tarefa criada, adicione suas tarefas e organize sua rotina.</h1>
+            </div>
+        }
+
+        @for (task of taskService.tasks(); track task.id) {
+            <div class="flex items-center gap-4 mb-4 p-4 bg-white rounded-lg border border-zinc-200 h-15">
+                <label class="relative flex items-center justify-center cursor-pointer">
+                    <input type="checkbox" class="peer sr-only" [checked]="task.completed" (change)="taskService.taskCompleted(task)" />
+                    <div class="w-6 h-6 border-2 border-slate-900 rounded-md peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all"></div>
+                    <svg class="absolute w-4 h-4 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </label>
+                
+                <span 
+                    [class.line-through]="task.completed"
+                    [class.text-zinc-500]="task.completed"                
+                >
+                    {{ task.title }}
+                </span>
+
+                <button class="ml-auto flex items-center text-zinc-400 hover:text-red-500 transition-colors cursor-pointer">
+                    @if (!task.completed) {
+                        <span class="material-symbols-outlined">delete</span>
+                    }
+                </button>
+            </div>
+        }
+    </div>
+
+    <div>
+    <div class="border-t-1 w-full mt-75 mb-10 border-t-zinc-300"></div>
+    <div class="flex justify-center">
+        <h1 class="text-zinc-700 text-xs bg-amber-200 py-2 px-15">DESENVOLVIDO POR THIAGO HENS SUCHI | COM ANGULAR &
+            SIGNALS
+        </h1>
+    </div>
+</div>
+</div>
