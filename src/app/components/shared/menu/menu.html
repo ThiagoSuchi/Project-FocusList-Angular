@@ -1,17 +1,12 @@
-<div class="flex flex-col gap-6">
-    <app-title class="p-4" main="FocusList" sub="Produtividade pessoal"></app-title>
+<div class="flex flex-col h-full">
+    <div class="flex flex-col gap-10">
+        <app-title class="p-2" main="FocusList" sub='Produtividade <span class="bg-amber-200 text-zinc-600 px-1 -skew-x-24 inline-block">pessoal</span>'></app-title>
 
-    <nav>
-        <ul>
-            <div class="flex items-center rounded-lg gap-3 px-4 cursor-pointer">
-                <span class="material-symbols-outlined" data-icon="today">today</span>
-                <app-menu-link label="Hoje" route="/"></app-menu-link>
-            </div>
-
-            <div class="flex items-center rounded-lg gap-3 px-4 cursor-pointer">
-                <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-                <app-menu-link label="Meu-perfil" route="/my-profile"></app-menu-link>
-            </div>
-        </ul>
-    </nav>
+        <nav>
+            <ul class="flex flex-col gap-1">
+                <app-menu-link label="Hoje" route="/" icon="today"></app-menu-link>
+                <app-menu-link label="Meu-perfil" route="/my-profile" icon="account_circle"></app-menu-link>
+            </ul>
+        </nav>
+    </div>
 </div>
