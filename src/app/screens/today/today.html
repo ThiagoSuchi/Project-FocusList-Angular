@@ -1,7 +1,8 @@
 <div class="flex flex-col gap-20 w-220 m-10">
     <app-title main="Foco de Hoje" sub="Mantenha a disciplina. Matenha a calma. Seja produtivo." size="text-5xl" font="font-bold"></app-title>
 
-    <div class="flex items-center p-3 bg-white rounded-lg border border-zinc-200 h-19">
+    <!--Box para adicionar tarefas-->
+    <div class="flex items-center p-3 bg-white rounded-lg h-19 shadow-sm">
         <span class="text-zinc-400 material-symbols-outlined">add</span>
         <input #inputTask maxlength="70" (input)="null" type="text" (keyup.enter)="postTask($event, $event.target)" placeholder="Adicionar nova tarefa..." class="text-zinc-400 ml-6 w-full h-full outline-none">
         
@@ -14,15 +15,17 @@
         </button>
     </div>
 
+    <!--Box que lista as tarefas-->
     <div>
+        <!--AVISO DE LISTA VAZIA-->
         @if (taskService.tasks().length === 0) {
-            <div class="flex justify-center mt-40">
+            <div class="flex justify-center mt-14">
                 <h1 class="text-zinc-400">Nenhuma tarefa criada, adicione suas tarefas e organize sua rotina.</h1>
             </div>
         }
 
         @for (task of taskService.tasks(); track task.id) {
-            <div class="flex items-center gap-4 mb-4 p-4 bg-white rounded-lg border border-zinc-200 h-15">
+            <div class="flex items-center gap-4 mt-1 mb-4 p-4 bg-white rounded-lg border border-zinc-200 h-15">
                 <label class="relative flex items-center justify-center cursor-pointer">
                     <input type="checkbox" class="peer sr-only" [checked]="task.completed" (change)="taskService.taskCompleted(task)" />
                     <div class="w-6 h-6 border-2 border-slate-900 rounded-md peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all"></div>
@@ -38,7 +41,9 @@
                     {{ task.title }}
                 </span>
 
-                <button class="ml-auto flex items-center text-zinc-400 hover:text-red-500 transition-colors cursor-pointer">
+                <button class="ml-auto flex items-center text-zinc-400 hover:text-red-500 transition-colors cursor-pointer"
+                        (click)="taskService.deleteTask(task.id)"
+                >
                     @if (!task.completed) {
                         <span class="material-symbols-outlined">delete</span>
                     }
@@ -47,12 +52,13 @@
         }
     </div>
 
+    <!--Footer-->
     <div>
-    <div class="border-t-1 w-full mt-75 mb-10 border-t-zinc-300"></div>
-    <div class="flex justify-center">
-        <h1 class="text-zinc-700 text-xs bg-amber-200 py-2 px-15">DESENVOLVIDO POR THIAGO HENS SUCHI | COM ANGULAR &
-            SIGNALS
-        </h1>
+        <div class="border-t-1 w-full mt-20 mb-10 border-t-zinc-300"></div>
+        <div class="flex justify-center">
+            <h1 class="text-zinc-700 text-xs bg-amber-200 py-2 px-15">DESENVOLVIDO POR THIAGO HENS SUCHI | COM ANGULAR &
+                SIGNALS
+            </h1>
+        </div>
     </div>
-</div>
 </div>
