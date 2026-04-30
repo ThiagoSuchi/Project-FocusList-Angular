@@ -1,5 +1,7 @@
-<div class="w-220 m-10">
-    <app-title main="Configurações e Perfil" sub="Gerencie sua conta e preferências visuais" size="text-5xl"font="font-bold"></app-title>
+<div class="w-220 m-5">
+    <!-- HEADER(HERO) -->
+    <app-title main="Configurações e Perfil" sub="Gerencie sua conta e preferências visuais" size="text-5xl"
+        font="font-bold"></app-title>
 
     <div class="flex gap-2 mt-20 items-center">
         <span class="material-symbols-outlined !text-3xl">person</span>
@@ -9,7 +11,8 @@
     <!-- SESSÃO - PERFIL -->
     <div class="flex items-center gap-6 border-2 border-zinc-200 rounded-xl h-40 mt-5">
         <!--Adicionar aqui a foto de perfil-->
-        <div class="rounded-full border-2 flex justify-center items-center border-zinc-300 m-6 relative bg-zinc-200 w-30 h-30">
+        <div
+            class="rounded-full border-2 flex justify-center items-center border-zinc-300 m-6 relative bg-zinc-200 w-30 h-30">
             <span class="material-symbols-outlined !text-[40px]">
                 account_circle
             </span>
@@ -45,53 +48,95 @@
 
     <div>
         <!-- Tema Escuro -->
-        <div class="rounded-lg border-2 mt-5 border-zinc-200 h-25">
+        <div class="group session-preference">
+            <span class="material-symbols-outlined icons-preference p-3 !text-[30px] rounded-full">dark_mode</span>
+            <div class="w-full">
+                <h1 class="text-[15pt]">Tema Escuro</h1>
+                <p class="text-[14pt] text-zinc-800">Alternar visual da interface</p>
+            </div>
 
+            <!-- Container do Switch -->
+            <div class="flex justify-end items-end w-full">
+                <label class="relative inline-flex items-center cursor-pointer group">
+                    <!-- Input escondido, mas funcional -->
+                    <input type="checkbox" class="sr-only peer">
+    
+                    <!-- O "trilho" do switch -->
+                    <div class="checkbox peer">
+                    </div>
+                </label>
+            </div>
         </div>
 
         <!-- Notificações -->
-        <div class="rounded-lg border-2 mt-4 border-zinc-200 h-25">
+       <div class="group session-preference">
+            <span class="material-symbols-outlined icons-preference p-3 !text-[30px] rounded-full">notifications_active</span>
+            <div class="w-full">
+                <h1 class="text-[15pt]">Notificações</h1>
+                <p class="text-[14pt] text-zinc-800">Alerta de prazos e lembretes</p>
+            </div>
 
+            <!-- Container do Switch -->
+            <div class="flex justify-end items-end w-full">
+                <label class="relative inline-flex items-center cursor-pointer group">
+                    <!-- Input escondido, mas funcional -->
+                    <input type="checkbox" class="sr-only peer">
+    
+                    <!-- O "trilho" do switch -->
+                    <div class="checkbox peer">
+                    </div>
+                </label>
+            </div>
         </div>
 
-        <div class="mt-4">
+        <!-- Sincronização em Nuvem / Privacidade -->
+        <div class="flex gap-5 justify-between mt-5">
             <!-- Sicronização em nuvem -->
-            <div class=" w-100 h-45 bg-[#d1def3] rounded-lg">
-                <span class="material-symbols-outlined">
+            <div class="group box-preference bg-[#d1def3] relative cursor-pointer">
+                <span class="material-symbols-outlined mb-7 !text-[40px] text-[#343f50]">
                     autorenew
                 </span>
-                <h1>Sicronização em Nuvem</h1>
-                <p>Último backup: {{ null }}</p>
+                <h1 class="text-[#343f50] text-2xl font-bold">Sicronização em Nuvem</h1>
+                <p class="text-[#343f50]">Último backup: {{ null }}</p>
+                <span
+                    class="material-symbols-outlined text-[#343f50] !text-3xl opacity-0 group-hover:opacity-100 transition-all duration-300 absolute right-5 top-1/4 -translate-y-1/2">chevron_right</span>
             </div>
             <!-- Privacidade -->
-            <div class=" w-100 h-45 bg-zinc-300 rounded-lg">
-                <span class="material-symbols-outlined">
+            <div class="group box-preference bg-zinc-300 relative cursor-pointer">
+                <span class="material-symbols-outlined mb-7 !text-[40px]">
                     security
                 </span>
-                <h1>Privacidade</h1>
+                <h1 class="text-2xl font-bold">Privacidade</h1>
                 <p>Dados criptografados de ponta a ponta</p>
+                <span
+                    class="material-symbols-outlined text-zinc-700 !text-3xl opacity-0 group-hover:opacity-100 transition-all duration-300 absolute right-5 top-1/4 -translate-y-1/2">chevron_right</span>
             </div>
         </div>
 
         <!-- Deletar conta -->
-        <div class="rounded-lg border-2 border-red-100 mt-4 bg-red-50 h-25">
-            <h1 class="text-red-600 font-bold">Excluir Conta</h1>
-            <p class="text-red-600">Todos os seus dados serão removidos permanentemente.</p>
-            <button class="border border-red-600 text-red-600 bg-white">Remover</button>
+        <div class="flex justify-between items-center mt-20 p-5 rounded-xl border-2 border-[#f3dfdff6] mt-4 bg-[#f7efef] h-25">
+            <div>
+                <h1 class="text-red-700 font-bold">Excluir Conta</h1>
+                <p class="text-red-800">Todos os seus dados serão removidos permanentemente.</p>
+            </div>
+            <button class="flex items-center px-5 py-2 rounded-lg border border-red-700 text-red-700 bg-white hover:bg-red-100 transition-colors cursor-pointer">Remover</button>
         </div>
 
-        <div>
+        <div class="flex flex-row-reverse gap-3 mt-12">
             <!-- Salvar Alterações -->
-            <button class="bg-black text-white">Salvar Alterações</button>
+            <button class="cursor-pointer hover:bg-zinc-700 transition-all bg-black text-white py-3 px-10 rounded-lg">Salvar
+                Alterações
+            </button>
             <!-- Descartar -->
-            <button>Descartar</button>
+            <button class="cursor-pointer hover:bg-zinc-200 rounded-lg px-6 transition-all">Descartar</button>
         </div>
     </div>
 
+    <!-- FOOTER -->
     <div>
-        <div class="border-t-1 w-200 mt-75 mb-10 border-t-zinc-300"></div>
+        <div class="border-t-1 w-200 mt-40 mb-10 border-t-zinc-300"></div>
         <div class="flex justify-center">
-            <h1 class="text-zinc-700 text-xs bg-amber-200 py-2 px-15">DESENVOLVIDO POR THIAGO HENS SUCHI | COM ANGULAR &
+            <h1 class="text-white text-xs bg-zinc-700 py-2 px-15">DESENVOLVIDO POR THIAGO HENS SUCHI | COM ANGULAR &
                 SIGNALS
             </h1>
         </div>
