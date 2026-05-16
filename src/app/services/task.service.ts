@@ -1,56 +1,44 @@
 // Lógica de negócio e persistência (localStorage)
 
-import { effect, Injectable, signal } from '@angular/core';
-import { Task } from '../models/task.models';
+import { inject, Injectable } from '@angular/core';
+import { ITask, type IDeleteRes, type ITaskDTO } from '../models/task.models';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import type { Observable } from 'rxjs';
+
+const API = `${environment.apiUrl}api/Task`
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  private readonly _tasks = signal<Task[]>([]);
+  private readonly _httpClient = inject(HttpClient);
 
-  readonly tasks = this._tasks.asReadonly();
+  constructor() { }
 
-  constructor() {
-    const key = 'tasks'
-    
-    this._load(key);
-
-    effect(() => {
-      const listTasks = this._tasks();
-
-      localStorage.setItem(key, JSON.stringify(listTasks));
-    })
+  // Listar todos 
+  getAllTask(): Observable<ITask[]> {
+    return this._httpClient.get<ITask[]>(API);
   }
 
   // Criar nova tarefa
-  postTask(title: string) {
-    const newTask: Task = {
-      id: crypto.randomUUID(),
-      title,
-      completed: false
-    };
-
-    this._tasks.update(task => [...task, newTask]);
+  postTask(title: ITaskDTO): Observable<ITask> {
+    return this._httpClient.post<ITask>(API, title);
   }
+
+  // IMPLEMENTAR EDIÇÃO(UPDATE) DE TAREFA
+
 
   // Atualizar status da tarefa
- taskCompleted(task: Task) {
-  this._tasks.update((tasks) => 
-    tasks.map((t) => 
-      t.id === task.id ? { ...t, completed: !t.completed } : t
-    )
-  )
- }
-
-  // Deletar tarefa
-  deleteTask(taskId: string) {
-    this._tasks.update(task => task.filter(item => item.id != taskId));
+  taskCompleted(task: ITask): Observable<ITask> {
+    return this._httpClient.put<ITask>(`${API}/${task.id}`, {
+      title: task.title,
+      completed: !task.completed
+    });
   }
 
-  // Persistência do ToDo no LocalStorage
-  _load(key: string) {
-    const data = localStorage.getItem(key);
-    return data ? this._tasks.set(JSON.parse(data)) : []
+  // Deletar tarefa
+  deleteTask(taskId: string): Observable<IDeleteRes> {
+    return this._httpClient.delete<IDeleteRes>(`${API}/${taskId}`);
   }
 }
