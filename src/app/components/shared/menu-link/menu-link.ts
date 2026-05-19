@@ -6,6 +6,7 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './menu-link.html',
   styleUrl: './menu-link.css',
+  standalone: true
 })
 export class MenuLink {
   readonly label = input.required<string>();
