@@ -9,6 +9,7 @@ import { Title } from "../title/title";
   styleUrl: './menu.css',
   host: {
     class: 'block h-full'
-  }
+  },
+  standalone: true
 })
 export class Menu {}
