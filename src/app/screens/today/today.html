@@ -4,7 +4,7 @@
     <!--Box para adicionar tarefas-->
     <div class="flex items-center p-3 bg-white rounded-lg h-19 shadow-sm">
         <span class="text-zinc-400 material-symbols-outlined">add</span>
-        <input #inputTask maxlength="70" (input)="null" type="text" (keyup.enter)="postTask($event, inputTask)" placeholder="Adicionar nova tarefa..." class="text-zinc-400 ml-6 w-full h-full outline-none">
+        <input #inputTask maxlength="70" type="text" (keyup.enter)="postTask($event, inputTask)" placeholder="Adicionar nova tarefa..." class="text-zinc-400 ml-6 w-full h-full outline-none">
         
         <p class="p-5 text-zinc-700">{{ inputTask.value.length }}/70</p>
 
@@ -18,13 +18,13 @@
     <!--Box que lista as tarefas-->
     <div>
         <!--AVISO DE LISTA VAZIA-->
-        @if (tasks.length === 0) {
+        @if (tasks().length === 0) {
             <div class="flex justify-center mt-14">
                 <h1 class="text-zinc-400">Nenhuma tarefa criada, adicione suas tarefas e organize sua rotina.</h1>
             </div>
         }
 
-        @for (task of tasks; track task.id) {
+        @for (task of tasks(); track task.id) {
             <div class="flex items-center gap-4 mt-1 mb-4 p-4 bg-white rounded-lg border border-zinc-200 h-15">
                 <label class="relative flex items-center justify-center cursor-pointer">
                     <input type="checkbox" class="peer sr-only" [checked]="task.completed" (change)="taskCompleted(task)" />
