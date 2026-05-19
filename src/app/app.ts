@@ -7,7 +7,8 @@ import { Page } from './components/shared/page/page';
   selector: 'app-root',
   imports: [RouterOutlet, Page],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
+  standalone: true
 })
 export class App {
   protected readonly title = signal('FocusList');
