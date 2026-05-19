@@ -5,6 +5,7 @@ import { Component, input } from '@angular/core';
   imports: [],
   templateUrl: './title.html',
   styleUrl: './title.css',
+  standalone: true
 })
 export class Title {
   readonly main = input.required<string>();
