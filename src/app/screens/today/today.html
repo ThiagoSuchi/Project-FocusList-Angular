@@ -8,7 +8,10 @@
         
         <p class="p-5 text-zinc-700">{{ inputTask.value.length }}/70</p>
 
-        <button class="bg-black rounded-lg cursor-pointer hover:bg-zinc-700 transition-all text-white p-1 px-4"
+        <button 
+            type="button" 
+            class="bg-black rounded-lg cursor-pointer hover:bg-zinc-700 transition-all text-white p-1 px-4"
+
             (click)="postTask($event, inputTask)"
         >
             Adicionar

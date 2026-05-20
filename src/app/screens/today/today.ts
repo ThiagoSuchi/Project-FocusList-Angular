@@ -1,8 +1,8 @@
-import { Component, inject, OnInit, signal, type OnDestroy } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, type OnDestroy } from '@angular/core';
 import { Title } from "../../components/shared/title/title";
 import { TaskService } from '../../services/task.service';
 import type { ITask } from '../../models/task.models';
-import { Subject, takeUntil } from 'rxjs';
+import { delay, finalize, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-today',
@@ -12,9 +12,13 @@ import { Subject, takeUntil } from 'rxjs';
   standalone: true
 })
 export class Today implements OnInit, OnDestroy {
-  tasks = signal<ITask[]>([]);
-  private destroy$ = new Subject<void>();
   readonly taskService = inject(TaskService);
+
+  private destroy$ = new Subject<void>();
+
+  public tasks = signal<ITask[]>([]);
+
+  public errorMessage = '';
 
   ngOnInit(): void {
     this.getAllTask();
@@ -42,13 +46,18 @@ export class Today implements OnInit, OnDestroy {
     if (!title) return;
 
     this.taskService.postTask({ title, completed: false })
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+      )
       .subscribe({
         next: (createdTask) => {
           this.tasks.update(tasks => [...tasks, createdTask]);
           valueInput.value = '';
         },
-        error: (err) => console.error('Erro ao criar task', err)
+        error: (err) => {
+          console.error('Erro ao criar task', err)
+          this.errorMessage = err;
+        } 
       });
   }
 
@@ -60,8 +69,8 @@ export class Today implements OnInit, OnDestroy {
           this.tasks.update(tasks =>
             tasks.map(t =>
               t.id === task.id
-              ? { ...t, completed: !t.completed }
-              : t
+                ? { ...t, completed: !t.completed }
+                : t
             )
           )
         }// Depois de persistir no banco, o angular entra no nó(next) e salva localmente.
